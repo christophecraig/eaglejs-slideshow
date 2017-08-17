@@ -2,7 +2,6 @@
 // website, don't forget to register your new slideshows in the list:
 export default {
   list: [
-    require('./first-slideshow/FirstSlideshow'),
-    require('./diapo-soutenance/DiapoSoutenance')
+    require('./first-slideshow/FirstSlideshow')
   ]
 }
