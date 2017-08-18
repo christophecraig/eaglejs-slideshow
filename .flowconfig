@@ -1,0 +1,9 @@
+[ignore]
+.*/dist/.*
+[include]
+.*/public/js/.*
+[libs]
+flow-typed
+[lints]
+
+[options]
