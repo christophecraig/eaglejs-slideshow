@@ -1,9 +1,10 @@
 <template lang='pug'>
 #MyFirstSlideshow
   .eg-slideshow
-    slide(leave='fadeOut')
-      h1 Faciliter la gestion d'une équipe dans le domaine du web
-      h4 This is your first slideshow !
+    slide(enter="fadeIn")
+      h1.main-title Faciliter la gestion d'une équipe dans le domaine du web
+        svg(width="800px" height="12px")
+          rect(:width="width" height="12px" style="fill:indianred;")
 
     slide(enter='fadeIn' leave='fadeOut')
       h3 Hey modify me !
@@ -27,7 +28,29 @@ export default {
   mixins: [eagle.slideshow],
   data () {
     return {
-      welcome: 'Bienvenue'
+      width: 0
+    }
+  },
+  mounted () {
+    console.log('test')
+    var _this = this
+    window.setTimeout(function () {
+      _this.date = Date.now()
+      _this.expand()
+    }, 600)
+  },
+  methods: {
+    expand () {
+      var speed = 18 - ((Date.now() - this.date) / 80)
+      if (this.width < 801 && speed > 0) {
+        this.width += speed
+        requestAnimationFrame(this.expand)
+      } else {
+        this.stop()
+      }
+    },
+    stop () {
+      cancelAnimationFrame(this.expand)
     }
   },
   infos: {
@@ -49,8 +72,16 @@ export default {
         width: 25em;
         max-width: 80%;
         margin: 0 auto;
-        h1 {
-          font-size: 1.5em;
+        .main-title {
+          position: absolute;
+          width: 70%;
+          margin: 0;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+        }
+        svg {
+          margin-left: 10px;
         }
       }
     }
