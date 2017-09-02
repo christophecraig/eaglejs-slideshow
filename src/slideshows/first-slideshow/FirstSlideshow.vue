@@ -1,7 +1,7 @@
 <template lang='pug'>
 #MyFirstSlideshow
   .eg-slideshow
-    slide(enter="fadeIn" leave="fadeOutDownBig")
+    slide(enter="fadeIn")
       div.container
         h1.main-title 
           span Faciliter la gestion d'une équipe dans le domaine du web
@@ -9,43 +9,69 @@
             eg-transition(enter="slideInLeft" style="animation-delay: 1s!important;")
               svg(width="1200px" height="1vw" viewbox="0 0 1vw 1200")
                 rect(width="1200" height="1vw" style="fill:indianred;")
-        svg(id="test" version="1.1" width="300" height="200")
-        input(type="color" v-model="myRect.color")
-        input(type="range" v-model="myRect.r" step="2" min="10" max="200")
-        form
-          input(v-model="myRect.cx" type="number")
-          input(v-model="myRect.cy" type="number")
-        div(@click="move") Enorme
 
-    slide(enter="slideInDown")
-      h3 Hey modify me !
-      p.
-        Come on modify me ! If you are running the development server,
-        you will see the changes take effect immediaely
 
-    slide(enter="fadeIn" leave="fadeOut")
-      h3 Want cool effects?
-      p.
-        Code your own, or try stealing for the other slideshows !
+    slide(enter="fadeIn")
+      h2 Comment proposer une interface à la fois #[strong claire] et #[strong complète] pour gérer un macro-planning ?
 
-    slide(enter='fadeIn')
-      h3 
+    slide(:steps=4 enter="fadeIn")
+      h3 Le contexte
+      ul
+        eg-transition(enter="fadeIn" leave="fadeOut")
+          li(v-if="step >= 2").
+            Besoin d'une interface plus simple
+        eg-transition(enter="fadeIn" leave="fadeOut")
+          li(v-if="step >= 3").
+            Besoin d'une interface plus moderne
+        eg-transition(enter="fadeIn" leave="fadeOut")
+          li(v-if="step >= 4").
+            Besoin de fonctionnalités supplémentaires
+
+
+    slide(:steps="3" enter='fadeIn')
+      h3 L'existant
+      eg-transition(enter="fadeIn")
+        figure(v-if="step === 2")
+          img(src="./assets/mypmb.png")
+
+      eg-transition(enter="fadeIn")
+        figure(v-if="step === 3")
+          img(src="./assets/openerp.png")
+
+    slide(:steps="7" enter="fadeIn")
+      h3 L'application
+      ul
+        eg-transition(enter="fadeIn")
+          li(v-if="step >= 2") Un WebService
+            eg-transition(enter="fadeIn" leave="fadeOut")
+              p(v-if="step >= 4") Qui interagit avec la base de données
+            eg-transition(enter="fadeIn" leave="fadeOut")
+              p(v-if="step >= 5") Qui met à disposition des fonctions utilisables par le client
+        
+        eg-transition(enter="fadeIn")
+          div(v-if="step >= 7").
+            ci-gira le schéma de l'api présentant également la consommation du webservice par
+
+        eg-transition(enter="fadeIn")
+          li(v-if="step >= 3") Une interface utilisateur #[small #[em (le client)]]
+            eg-transition(enter="fadeIn" leave="fadeOut")
+              p(v-if="step >= 6") Qui utilisera les fonctions fournies par le WebService
 </template>
 
 <script>
 // import titles from 'title'
 import eagle from 'eagle.js'
-import Snap from 'imports-loader?this=>window,fix=>module.exports=0!snapsvg/dist/snap.svg.js'
+// import Snap from 'imports-loader?this=>window,fix=>module.exports=0!snapsvg/dist/snap.svg.js'
 export default {
   mixins: [eagle.slideshow],
   data () {
     return {
-      width: 0,
       myRect: {
         color: 'indianred',
-        r: 15,
-        cx: 100,
-        cy: 100
+        width: 35,
+        height: 10,
+        x: 0,
+        y: 0
       }
     }
   },
@@ -56,43 +82,14 @@ export default {
     path: 'presentation'
   },
   updated () {
-    this.updateShape()
   },
   created () {
-    var _S = Snap(document.getElementById('test'))
-    this.shape = _S.rect(150, 50, 100, 100)
-    this.shape.attr({
-      fill: 'indianred'
-    })
+
   },
   methods: {
-    updateShape () {
-      this.shape.attr({
-        fill: this.shapeColor,
-        width: this.shapeR,
-        height: this.shapeR
-      })
-    },
-    move () {
-      this.shape.animate({
-        x: this.computedCoordinates.cx,
-        y: this.computedCoordinates.cy
-      }, 500)
-    }
+
   },
   computed: {
-    shapeColor () {
-      return this.myRect.color
-    },
-    shapeR () {
-      return this.myRect.r
-    },
-    computedCoordinates () {
-      return {
-        cx: this.myRect.cx,
-        cy: this.myRect.cy
-      }
-    }
   }
 }
 </script>
@@ -128,11 +125,5 @@ export default {
     max-width: 80%;
     margin: 0 auto;
   }
-  .slideInLeft {
-    transition-delay: 35s
-  } // .fadeOut {
-  //   position: absolute;
-  //   top: 0;
-  // }
 }
 </style>
