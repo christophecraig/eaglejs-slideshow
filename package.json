@@ -58,7 +58,7 @@
     "webpack-dev-middleware": "^1.10.0",
     "webpack-hot-middleware": "^2.16.1",
     "webpack-merge": "^2.6.1",
-    "pug": "2.0.0-beta11",
+    "pug": "3.0.1",
     "sass-loader": "5.0.0",
     "node-sass": "4.5.0",
     "jstransformer-markdown-it": "2.0.0"
